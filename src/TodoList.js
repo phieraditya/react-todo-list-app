@@ -6,14 +6,20 @@ class TodoList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      todos: ['Oven Tahu', 'Haluskan bumbu', 'Prep Kacang Panjang'],
+      todos: [],
     };
+    this.addTask = this.addTask.bind(this);
+  }
+  addTask(newTask) {
+    this.setState({ todos: [...this.state.todos, newTask] });
   }
   render() {
-    const todos = this.state.todos.map((todo) => <Todo task={todo} />);
+    const todos = this.state.todos.map((todo) => (
+      <Todo key={todo.id} task={todo.task} />
+    ));
     return (
       <div>
-        <NewTodoForm />
+        <NewTodoForm addTask={this.addTask} />
         {todos}
       </div>
     );
